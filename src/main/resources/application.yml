@@ -3,5 +3,5 @@ spring:
     active: dev
 env.name: dev
 team.name: bamboo
-app.name: mobile-oauth-agent
+app.name: oauth-server
 app.version: 0.1.0

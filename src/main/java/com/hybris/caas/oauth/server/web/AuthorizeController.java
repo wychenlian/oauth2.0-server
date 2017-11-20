@@ -15,6 +15,7 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,7 +38,8 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/oauth/server")
 @NoArgsConstructor
-public class AuthorizeController {
+@Configuration
+public class AuthorizeController extends WebMvcConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizeController.class);
 
     /**
@@ -133,4 +138,16 @@ public class AuthorizeController {
         System.out.println("--------服务端/responseAccessToken-----------------------------------------------------------");
         return null;
     }
+
+
+    /**
+     * Get AccessToken by authorization code or freshToken,
+     */
+    @GetMapping(value = "/login")
+    public ModelAndView getLoginPage(HttpServletRequest request) {
+        System.out.println("--------服务端/Request For Login Page-----------------------------------------------------------");
+        ModelAndView mav = new ModelAndView("resources/static/login.html");
+        return mav;
+    }
+
 }
