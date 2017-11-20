@@ -1,0 +1,25 @@
+---
+spring:
+  profiles: dev
+  jpa:
+    show-sql: true
+    properties:
+      eclipselink:
+        generate-ddl: none
+        logging.level: FINE
+        jdbc.allow-native-sql-queries: true
+        cache.shared.default: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=caas2
+    username: postgres
+    password: postgres
+server:
+  port: 8082
+flyway:
+  enabled: true
+  locations:
+    - db/migration/mobile-oauth-agent
+  table: mobile_oauth_agent_schema_version
+  schemas: caas2
+  baselineOnMigrate: true
+db.clean-on-startup: false

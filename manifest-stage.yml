@@ -1,0 +1,22 @@
+---
+applications:
+- name: mobile-oauth-agent
+  host: mobile-oauth-agent
+  memory: 1G
+  path: build/libs/mobile-oauth-agente-0.0.4-SNAPSHOT.jar
+  buildpack: sap_java_buildpack
+  # buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.19
+  # health-check-type: http
+  # health-check-http-endpoint: /health
+  env:
+      SPRING_PROFILES_ACTIVE: stage
+      # Disable Spring Auto Reconfiguration
+      JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{enabled: false}'
+      # Use the non-blocking /dev/urandom instead of the default to generate random numbers.
+      # When using Java community buildpack, increase startup times, especially when using Spring Boot.
+      JAVA_OPTS: -Djava.security.egd=file:///dev/./urandom
+      # When using sap_java_buildpack in combination with war packaging
+      SET_LOGGING_LEVEL: '{com.hybris.caas.mobile.oauth.agent.web.*: INFO}'
+  services:
+  - caas-integration-test-db
+  - caas-integration-test-xsuaa
