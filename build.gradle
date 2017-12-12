@@ -42,7 +42,8 @@ dependencies {
     compile('com.sap.hcp.cf.logging:cf-java-logging-support-servlet:2.1.1')
     compile('com.sap.hcp.cf.logging:cf-java-logging-support-logback:2.1.1')
     compile('com.sap.hcp.cf.logging:cf-java-logging-support-core:2.1.1')
-
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf'
     compileOnly 'org.projectlombok:lombok:1.16.18'
 }
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9"/>
+</head>
+<link rel="stylesheet" type="text/css" href="../../jslib/login-pc.css"/>
+<link rel="stylesheet" href="../../jslib/bootstrap.min.css"/> <!--4.0.0-beta.2-->
+<script src="../../jslib/popper.min.js"></script> <!--1.12.3-->
+<script src="../../jslib/bootstrap.min.js"></script> <!--4.0.0-beta.2-->
+<body>
+<script type="text/javascript" src="../../jslib/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#inputError").hide();
+        $("#email").blur(function () {
+            emailRegex = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+            if (!$("#email").val() || emailRegex.test($("#email").val())) { 
+                $("#inputError").hide();
+            } else {
+                $("#inputError").show();
+            }
+        })
+    })
+</script>
+<form class="form__container" th:action="@{/oauth/server/login}" method="post">
+    <div class="text-center">
+        <img src="../../jslib/caas_logo.svg" class="rounded" alt="caas_logo"/>
+    </div>
+    <span class="header__banner">Sign in to Your Account</span>
+    <div class="card card_container_login">
+        <span class="input-box form-group">
+            <label for="email">Email</label>
+            <input type="text" id="email"  class="form-control" name="username" autofocus="autofocus"/>
+        </span>
+        <span class="input-box form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" name="password"/>
+        </span>
+        <span id="inputError" class="error">Please provide a valid email address</span>
+        <span th:if="${error}"
+            class="error">The email address and/or password entered does not match our records</span>
+        <a id="forget_password"><u> Forget Password?</u></a>
+        <input type="hidden" name="redirectUrl" th:value="${redirectUrl}"/>
+        <input type="submit" value="Login"/>
+    </div>
+</form>
+</body>
+</html>
